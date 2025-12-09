@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JLY Dragon Fruit Farm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fresh dragon fruit directly from JLY Dragon Fruit Farm, Gongopula village. Naturally grown, sweet and healthy." />
+  <!-- JLY = Jesus Loves You (kept as a comment / hidden meaning) -->
+  <style>
+    :root {
+      --bg-dark: #050816;
+      --bg-card: #0b1120;
+      --accent: #ec4899;
+      --accent-soft: #f472b6;
+      --accent-green: #22c55e;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.35);
+      --radius-xl: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(15,23,42,0.95), rgba(15,23,42,0.75), transparent);
+      border-bottom: 1px solid rgba(148,163,184,0.3);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #f9a8d4 0, #ec4899 30%, #4c1d95 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 25px rgba(236,72,153,0.6);
+    }
+
+    .brand-badge[title] {
+      cursor: help;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-text span:first-child {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .brand-text span:last-child {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      padding: 4px 0;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, var(--accent), var(--accent-green));
+      transition: width 0.18s ease-out;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      font-size: 0.85rem;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      display: none;
+    }
+
+    .nav-cta span {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 16px 40px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: radial-gradient(circle at top left, rgba(236,72,153,0.2), transparent 60%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(244,114,182,0.9);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 3.2vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 span.highlight {
+      background: linear-gradient(to right, #f9a8d4, #fb7185, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-tagline {
+      font-size: 0.9rem;
+      color: #facc15;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.3);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .tag strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      font-size: 0.9rem;
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #ec4899, #a855f7, #22c55e);
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(236,72,153,0.6);
+    }
+
+    .btn-ghost {
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.8);
+      color: var(--text-muted);
+    }
+
+    .hero-side {
+      position: relative;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top, rgba(236,72,153,0.18), transparent 70%);
+      border-radius: 24px;
+      padding: 16px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: var(--shadow-soft);
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    .hero-fruit {
+      border-radius: 18px;
+      border: 1px solid rgba(248,113,113,0.4);
+      padding: 10px;
+      background: radial-gradient(circle at top left, rgba(248,113,113,0.12), transparent 65%);
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+    }
+
+    .hero-fruit h3 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .hero-fruit p {
+      color: var(--text-muted);
+    }
+
+    .price-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .pill-price {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(248,250,252,0.25);
+      font-size: 0.75rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .hero-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(52,211,153,0.5);
+      color: #bbf7d0;
+      font-size: 0.75rem;
+    }
+
+    section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 26px 16px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-heading h2 {
+      font-size: 1.3rem;
+    }
+
+    .section-heading p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    .price-update-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .price-update-note strong {
+      color: #facc15;
+    }
+
+    .price-updated-time {
+      font-size: 0.8rem;
+      color: #a5b4fc;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      padding: 14px 14px 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 30px rgba(15,23,42,0.7);
+      font-size: 0.9rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .pill-small {
+      display: inline-flex;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .price-tag {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f97316;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .list {
+      list-style: none;
+      padding-left: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .list li {
+      margin-bottom: 8px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .list-bullet {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      margin-top: 7px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .mini-card {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+    }
+
+    .quote {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .quote-author {
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      padding: 14px 14px 16px;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(15,23,42,0.7);
+    }
+
+    .contact-row {
+      margin-bottom: 8px;
+    }
+
+    .contact-row span.label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .contact-row span.value {
+      font-size: 0.9rem;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .contact-actions a {
+      font-size: 0.85rem;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--text-muted);
+    }
+
+    footer {
+      border-top: 1px solid rgba(30,64,175,0.6);
+      margin-top: 10px;
+      padding: 14px 16px 28px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-side {
+        order: -1;
+      }
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .two-col,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-cta {
+        display: inline-flex;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav ul {
+        display: none;
+      }
+      .hero {
+        padding-top: 18px;
+      }
+      .cards-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-badge" title="JLY = Jesus Loves You">J</div>
+      <div class="brand-text">
+        <span>JLY DRAGON FRUIT FARM</span>
+        <span>Fresh Fruits, Good Life</span>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#farm">Farm</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="nav-cta">Call / WhatsApp <span> now</span></a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="pill">
+        <span class="pill-dot"></span>
+        Fresh from farm • Same-day harvest (subject to availability)
+      </div>
+      <h1>
+        Naturally Sweet <span class="highlight">Dragon Fruit</span><br />
+        Direct from JLY Farm
+      </h1>
+      <div class="hero-tagline">Fresh Fruits, Good Life</div>
+      <p class="hero-sub">
+        Hand-picked, chemical-conscious dragon fruit from our 3-acre trellis farm in
+        Gongopula village, Bheemgal mandal, Nizamabad district, Telangana.
+      </p>
+
+      <div class="hero-grid">
+        <div class="tag"><strong>Pink Pulp</strong> – rich, sweet & juicy</div>
+        <div class="tag">Grown with <strong>integrated farming</strong></div>
+        <div class="tag">Ideal for <strong>family health & juice shops</strong></div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="https://wa.me/919014262551" target="_blank" class="btn-primary">Order on WhatsApp (Raju)</a>
+        <a href="#products" class="btn-ghost">View prices &amp; offers</a>
+      </div>
+    </div>
+
+    <div class="hero-side">
+      <div class="hero-card">
+        <div class="hero-fruit">
+          <h3>Today’s Farm Offer</h3>
+          <p>Freshly harvested pink dragon fruit (Grade-A quality). Prices may vary depending on availability.</p>
+          <div class="price-row">
+            <div class="pill-price">3 kg – <strong>₹<span id="heroPrice3"></span></strong></div>
+            <div class="pill-price">6 kg – <strong>₹<span id="heroPrice6"></span></strong></div>
+            <div class="pill-price">Bulk – <strong>Call for best price</strong></div>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <div style="font-size:0.8rem; color:#e5e7eb;">Why customers love JLY</div>
+            <div style="font-size:0.78rem; color:var(--text-muted);">
+              • Naturally grown • Hand-sorted • Direct from Gongopula farm
+            </div>
+          </div>
+          <div class="hero-badge">
+            3+ Acres • Trellis • Integrated Farming
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="section-heading">
+      <div>
+        <h2>Products &amp; Pricing</h2>
+        <p>Prices may change depending on season and availability. We always try to give you the
+           best possible price directly from the farm.</p>
+      </div>
+      <div>
+        <div class="price-update-note">
+          <strong>Note:</strong> Prices shown here are indicative. Please confirm on call / WhatsApp before final order.
+        </div>
+        <div class="price-updated-time" id="priceUpdatedText"></div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <article class="card">
+        <span class="pill-small">Most Popular</span>
+        <h3>Home Pack – 3 kg</h3>
+        <p>Perfect for a family of 3–4 members for 3–4 days. Ideal for eating fresh or making juice/smoothies.</p>
+        <div class="price-tag">₹<span id="price3kg"></span> / 3 kg</div>
+        <p style="margin-top:4px;">Approx. 6–8 fruits depending on size and season.</p>
+      </article>
+
+      <article class="card">
+        <span class="pill-small">Best Value</span>
+        <h3>Family Pack – 6 kg</h3>
+        <p>Best choice for weekly use, small functions, get-togethers and juice lovers.</p>
+        <div class="price-tag">₹<span id="price6kg"></span> / 6 kg</div>
+        <p style="margin-top:4px;">Discount available for regular customers and repeated orders.</p>
+      </article>
+
+      <article class="card">
+        <span class="pill-small">Bulk / B2B</span>
+        <h3>Wholesale &amp; Bulk Orders</h3>
+        <p>Special rates for juice shops, hotels, caterers, events and regular bulk buyers across Telangana.</p>
+        <div class="price-tag">Call / WhatsApp for today’s best rate</div>
+        <p style="margin-top:4px;">Flexible quantity • Consistent supply • Quality guaranteed.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- FARM / INTEGRATED SYSTEM -->
+  <section id="farm">
+    <div class="section-heading">
+      <h2>About JLY Dragon Fruit Farm</h2>
+      <p>Located at Gongopula village, Bheemgal mandal, Nizamabad district (Telangana), our 3-acre farm is
+         developed as an integrated model focusing on healthy dragon fruit production.</p>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:1rem; margin-bottom:6px;">3-Acre Trellis Dragon Fruit Farm</h3>
+        <ul class="list">
+          <li>
+            <span class="list-bullet"></span>
+            <span>Trellis method with ~12 ft spacing between rows for better sunlight and airflow.</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>20×30 ft pond in the middle of the field to support irrigation and micro-climate.</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>Focus on pink-pulp varieties known for colour, sweetness and strong market demand.</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>Minimal chemical usage – more focus on farm-made organic inputs and integrated farming.</span>
+          </li>
+        </ul>
+
+        <h3 style="font-size:0.98rem; margin:10px 0 4px;">Why our fruits taste better</h3>
+        <ul class="list">
+          <li>
+            <span class="list-bullet"></span>
+            <span>Balanced nutrition using vermicompost and farmyard manure from our own units.</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>Better pollination support with honey bee boxes placed near the field.</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>Careful picking at the right maturity stage for natural sweetness and shelf life.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 style="font-size:0.98rem; margin-bottom:6px;">Integrated Farming Components</h3>
+        <div class="mini-grid">
+          <div class="mini-card">
+            <strong>Poultry Shed</strong><br />
+            Poultry droppings are converted into rich manure, reducing chemical fertilizer needs.
+          </div>
+          <div class="mini-card">
+            <strong>Vermicompost Unit</strong><br />
+            Farm waste is turned into high-quality compost for dragon fruit plants.
+          </div>
+          <div class="mini-card">
+            <strong>Honey Bee Boxes</strong><br />
+            Support pollination, improve fruit set, and provide honey as an additional income.
+          </div>
+          <div class="mini-card">
+            <strong>Cattle (2 Nos)</strong><br />
+            Provide dung + urine for organic preparations and basic farm operations.
+          </div>
+        </div>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-top:10px;">
+          This integrated model helps maintain soil health, reduce outside inputs and provide
+          you with naturally grown fruits at a fair price.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-heading">
+      <h2>What Our Customers Say</h2>
+      <p>Feedback from families and buyers who regularly order from JLY Dragon Fruit Farm.</p>
+    </div>
+
+    <div class="cards-grid">
+      <article class="card">
+        <span class="pill-small">Family Customer</span>
+        <p class="quote">
+          “Fruits are always fresh and sweet. My kids love the colour and taste.
+          We order almost every week from JLY Farm.”
+        </p>
+        <p class="quote-author">– Local Family Buyer</p>
+      </article>
+
+      <article class="card">
+        <span class="pill-small">Juice Shop Owner</span>
+        <p class="quote">
+          “Colour and consistency of the pulp is perfect for juice and desserts.
+          Supply is stable and the farm gives us genuine prices.”
+        </p>
+        <p class="quote-author">– Juice Shop near Nizamabad</p>
+      </article>
+
+      <article class="card">
+        <span class="pill-small">Health-Conscious Buyer</span>
+        <p class="quote">
+          “I added dragon fruit to my regular diet. JLY fruits feel natural and not over-chemical.
+          Highly recommended for daily use.”
+        </p>
+        <p class="quote-author">– Regular Health Customer</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-heading">
+      <h2>Order &amp; Contact</h2>
+      <p>Reach out on call or WhatsApp for today’s availability, best price and transport options to your location.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3 style="font-size:1rem; margin-bottom:8px;">Primary Contact – Owner</h3>
+        <div class="contact-row">
+          <span class="label">Name</span>
+          <span class="value">G. Raju (Owner)</span>
+        </div>
+        <div class="contact-row">
+          <span class="label">Phone / WhatsApp</span>
+          <span class="value">+91 9014262551</span>
+        </div>
+        <div class="contact-row">
+          <span class="label">Farm Location</span>
+          <span class="value">
+            JLY Dragon Fruit Farm,<br />
+            Gongopula village, Bheemgal mandal,<br />
+            Nizamabad District, Telangana – 503307, India.
+          </span>
+        </div>
+        <div class="contact-row">
+          <span class="label">Timings</span>
+          <span class="value">Every day – 7:00 AM to 8:00 PM (IST)</span>
+        </div>
+
+        <div class="contact-actions">
+          <a href="tel:+919014262551">📞 Call Raju</a>
+          <a href="https://wa.me/919014262551" target="_blank">💬 WhatsApp Raju</a>
+        </div>
+
+        <p style="font-size:0.78rem; color:var(--text-muted); margin-top:10px;">
+          When you message, please share: <br />
+          • Quantity (3 kg / 6 kg / bulk) <br />
+          • Delivery or pickup <br />
+          • Preferred date and time
+        </p>
+      </div>
+
+      <div class="contact-card">
+        <h3 style="font-size:1rem; margin-bottom:8px;">Technical / Agriculture Support</h3>
+        <div class="contact-row">
+          <span class="label">Name</span>
+          <span class="value">G. Prakash (B.Sc Agriculture)</span>
+        </div>
+        <div class="contact-row">
+          <span class="label">Phone / WhatsApp</span>
+          <span class="value">+91 9963304250</span>
+        </div>
+
+        <p style="font-size:0.85rem; color:var(--text-muted); margin:8px 0;">
+          For farm visits, technical information about dragon fruit cultivation, integrated farming,
+          and long-term supply planning, you can contact Prakash.
+        </p>
+
+        <div class="contact-actions">
+          <a href="tel:+919963304250">📞 Call Prakash</a>
+          <a href="https://wa.me/919963304250" target="_blank">💬 WhatsApp Prakash</a>
+        </div>
+
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+          We welcome serious buyers, agri-entrepreneurs and students who want to learn about
+          integrated dragon fruit farming.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> JLY Dragon Fruit Farm, Gongopula – Bheemgal – Nizamabad – Telangana – 503307, India.
+  All rights reserved. | This is a live farm page – prices &amp; availability may change.
+</footer>
+
+<script>
+  // ====== EDITABLE PRICES & LAST UPDATED TEXT ======
+  // Change these values whenever you update the prices.
+  const PRICE_3KG = 500;   // Example: 3 kg pack price
+  const PRICE_6KG = 980;   // Example: 6 kg pack price
+  // You can change this text when you update prices:
+  const PRICE_LAST_UPDATED_TEXT = "Prices last updated on 09 Dec 2025, 6:30 PM IST";
+
+  // ====== APPLY PRICES TO PAGE (AUTO) ======
+  document.getElementById("price3kg").textContent = PRICE_3KG;
+  document.getElementById("price6kg").textContent = PRICE_6KG;
+  document.getElementById("heroPrice3").textContent = PRICE_3KG;
+  document.getElementById("heroPrice6").textContent = PRICE_6KG;
+  document.getElementById("priceUpdatedText").textContent = PRICE_LAST_UPDATED_TEXT;
+
+  // Set current year in footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
